@@ -20,10 +20,10 @@ pip install kasane
 
 ## Examples
 
-* [Simple Layers](https://github.com/google/kasane/tree/master/examples/01-simple-layers) is an introduction to kasane features.
-* [Jsonnet Transformations](https://github.com/google/kasane/tree/master/examples/02-jsonnet-transformations) shows how to use Jsonnet to transform objects.
-* [Environment](https://github.com/google/kasane/tree/master/examples/03-environment) explains how to use the external environment for customized pipelines.
-* [Complex Service](https://github.com/google/kasane/tree/master/examples/04-complex-service) shows all the features together by using the upstream configuration for kubernetes dashboard, adding an ingress, and optionally enabling istio sidecar.
+* [Simple Layers](examples/01-simple-layers) is an introduction to kasane features.
+* [Jsonnet Transformations](examples/02-jsonnet-transformations) shows how to use Jsonnet to transform objects.
+* [Environment](examples/03-environment) explains how to use the external environment for customized pipelines.
+* [Complex Service](examples/04-complex-service) shows all the features together by using the upstream configuration for kubernetes dashboard, adding an ingress, and optionally enabling istio sidecar.
 
 ## Similar tools
 
