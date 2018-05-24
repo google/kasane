@@ -14,14 +14,23 @@
 
 from setuptools import setup
 
+def readme():
+  with open('README.md') as f:
+    return f.read()
+
 setup(name='kasane',
-      version='0.1',
+      version='0.1.1',
       description='A simple kubernets deployment manager',
+      long_description=readme(),
       url='https://github.com/google/kasane',
       author='Vladimir Pouzanov',
       author_email='farcaller@gmail.com',
+      keywords='kubernetes helm package-manager docker jsonnet',
       license='Apache-2',
-      packages=['kasane'],
+      packages=[
+        'kasane',
+        'kasane.ops'
+      ],
       install_requires=[
         'click',
         'ruamel.yaml',
@@ -32,4 +41,5 @@ setup(name='kasane',
       entry_points = {
         'console_scripts': ['kasane=kasane.cmd:main'],
       },
+      include_package_data=True,
       zip_safe=False)
