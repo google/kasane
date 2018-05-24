@@ -19,7 +19,7 @@ def readme():
     return f.read()
 
 setup(name='kasane',
-      version='0.1.2',
+      version='0.1.3',
       description='A simple kubernets deployment manager',
       long_description=readme(),
       long_description_content_type='text/markdown',
