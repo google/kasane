@@ -1,0 +1,3 @@
+layers:
+- https://raw.githubusercontent.com/google/kasane/master/examples/02-jsonnet-transformations/object.yaml
+- patch.jsonnet

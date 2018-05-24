@@ -1,0 +1,6 @@
+Kind: VendoredObject
+metadata:
+  name: PreconfiguredObject
+config:
+  defaultFlag: 10
+  otherFlag: don't change
