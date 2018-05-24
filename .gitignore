@@ -1,4 +1,5 @@
 .vscode
+Kasanefile.lock
 
 # Compiled python modules.
 *.pyc

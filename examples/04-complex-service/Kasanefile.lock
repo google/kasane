@@ -1,3 +1,0 @@
-layers:
-- name: https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
-  hash: b0d00aa5bc10639966838baa590fb8b5ff37182349217659b80ad9709ae04c73
