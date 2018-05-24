@@ -1,3 +1,8 @@
+---
 kind: FakeObject
 metadata:
   name: fake
+---
+kind: FakeObject
+metadata:
+  name: fake2

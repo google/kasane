@@ -20,6 +20,10 @@ metadata:
 kind: FakeObject
 metadata:
   name: fake2
+---
+kind: FakeObject
+metadata:
+  name: fake3
 ```
 
 The current verison supports only the simple http[s] upstreams.
