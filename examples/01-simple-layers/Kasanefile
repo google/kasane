@@ -1,0 +1,3 @@
+layers:
+- first.yaml
+- https://raw.githubusercontent.com/google/kasane/master/examples/01-simple-layers/second.yaml
