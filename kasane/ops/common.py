@@ -36,6 +36,11 @@ LOCKFILE_NAME = 'Kasanefile.lock'
 
 RuntimeConfig = namedtuple('RuntimeConfig', ['check_hashes', 'jsonnet', 'kubeconfig'])
 
+class RemoteNotVendoredError(RuntimeError):
+  def __init__(self, layer):
+    super().__init__()
+    self.layer = layer
+
 class Config(object):
   def __init__(self, path: str, configdata: dict, lockdata: dict, rc: RuntimeConfig) -> None:
     self._configdata = configdata
@@ -135,7 +140,12 @@ class Layer(object):
     else:
       path = os.path.join(self._cfg.path, self.name)
     
-    return open(path).read()
+    try:
+      return open(path).read()
+    except FileNotFoundError:
+      if self.is_remote:
+        raise RemoteNotVendoredError(self)
+      raise
   
   def vendor_content(self):
     if not self.is_remote:

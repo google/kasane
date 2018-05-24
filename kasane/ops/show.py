@@ -22,7 +22,11 @@ from . import common, jsonnet
 
 def show(path: str, rc: common.RuntimeConfig, highlight: bool, filter_kind: str) -> None:
   cfg = common.get_config(path, rc)
-  data = cfg.run()
+  try:
+    data = cfg.run()
+  except common.RemoteNotVendoredError as e:
+    print("layer {name} isn't vendored yet. Run kasane update.".format(name=e.layer.name))
+    exit(1)
   s = StringIO()
   if filter_kind:
     filter_kind = filter_kind.lower()
