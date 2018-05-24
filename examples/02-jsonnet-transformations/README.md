@@ -11,7 +11,7 @@ layers:
 $ kasane update
 
 $ kasane show
-Kind: VendoredObject
+kind: VendoredObject
 config:
   defaultFlag: 42
   otherFlag: don't change

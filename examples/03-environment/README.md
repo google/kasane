@@ -25,7 +25,7 @@ layers:
   when: not ignore_jsonnet
 
 $ kasane show
-Kind: VendoredObject
+kind: VendoredObject
 config:
   defaultFlag: UNRESOLVED_ENV_VAR__DEFAULT_VALUE
   jsonnetEnv: UNRESOLVED_ENV_VAR__OTHER_VALUE
@@ -37,7 +37,7 @@ Notice how by default kasane doesn't fail if the environment is undefined. `kasa
 
 ```bash
 $ kasane -e DEFAULT_VALUE=10 -e OTHER_VALUE=11 show --no-ignore-env
-Kind: VendoredObject
+kind: VendoredObject
 config:
   defaultFlag: 10
   jsonnetEnv: '11'
@@ -49,7 +49,7 @@ Notice how the environment resolves to whatever is contextually sensible in YAML
 
 ```bash
 kasane -e DEFAULT_VALUE=10 -e ignore_jsonnet=true show --no-ignore-env
-Kind: VendoredObject
+kind: VendoredObject
 metadata:
   name: PreconfiguredObject
 config:
@@ -62,7 +62,7 @@ You can also pass the environment via the os environment `KASANE_JSONNET_ENV` va
 
 ```bash
 KASANE_JSONNET_ENV='{"DEFAULT_VALUE":"20"}' kasane show
-Kind: VendoredObject
+kind: VendoredObject
 config:
   defaultFlag: 20
   jsonnetEnv: UNRESOLVED_ENV_VAR__OTHER_VALUE
