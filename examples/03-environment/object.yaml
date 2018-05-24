@@ -1,0 +1,5 @@
+Kind: VendoredObject
+metadata:
+  name: PreconfiguredObject
+config:
+  defaultFlag: ${DEFAULT_VALUE}
