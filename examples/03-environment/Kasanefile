@@ -3,3 +3,5 @@ layers:
   loader: yamlenv
 - name: patch.jsonnet
   when: not ignore_jsonnet
+environment:
+  DEFAULT_KASANE: value

@@ -16,6 +16,8 @@ Jsonnet supports the environment natively via an exported function `std.native("
 
 Kasanefiles can skip or include additional layers based on the environment, specified by `when` condition -- if you ever worked with ansible you'll immediately know how it operates. The string in the `when` condition is a jinja2 expression with all the environment options exposed.
 
+Common environment can be specified inline within Kasanefile. That's handy in case you have several yamlenv files with known defaults.
+
 ```bash
 $ cat kasanefile
 layers:
@@ -23,11 +25,14 @@ layers:
   loader: yamlenv
 - name: patch.jsonnet
   when: not ignore_jsonnet
+environment:
+  DEFAULT_KASANE: value
 
 $ kasane show
 kind: VendoredObject
 config:
   defaultFlag: UNRESOLVED_ENV_VAR__DEFAULT_VALUE
+  defaultFromKasanefile: value
   jsonnetEnv: UNRESOLVED_ENV_VAR__OTHER_VALUE
 metadata:
   name: PreconfiguredObject
@@ -40,6 +45,7 @@ $ kasane -e DEFAULT_VALUE=10 -e OTHER_VALUE=11 show --no-ignore-env
 kind: VendoredObject
 config:
   defaultFlag: 10
+  defaultFromKasanefile: value
   jsonnetEnv: '11'
 metadata:
   name: PreconfiguredObject
@@ -54,6 +60,7 @@ metadata:
   name: PreconfiguredObject
 config:
   defaultFlag: 10
+  defaultFromKasanefile: value
 ```
 
 If the layer is skipped its environment isn't evaluated and it's fine to skip unused environment fields.
@@ -65,7 +72,10 @@ KASANE_JSONNET_ENV='{"DEFAULT_VALUE":"20"}' kasane show
 kind: VendoredObject
 config:
   defaultFlag: 20
+  defaultFromKasanefile: value
   jsonnetEnv: UNRESOLVED_ENV_VAR__OTHER_VALUE
 metadata:
   name: PreconfiguredObject
 ```
+
+Hint: if you keep repeating same loader (e.g. `yamlenv` for a bunch of yaml files) you can specify `default_loader: yamlenv` in Kasanefile.

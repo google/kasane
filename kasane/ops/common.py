@@ -50,9 +50,14 @@ class Config(object):
 
     self.namespace = configdata.get('namespace')
     self.default_loader = configdata.get('default_loader')
-
+    self.localenv = configdata.get('environment', {})
     self.layers: List[Layer] = []
     self.rc = rc
+
+    merged_env = dict()
+    merged_env.update(self.localenv)
+    merged_env.update(self.rc.jsonnet.env)
+    self.rc.jsonnet.env = merged_env
     
     for l in configdata['layers']:
       if isinstance(l, str):
