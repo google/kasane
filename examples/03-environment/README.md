@@ -19,7 +19,7 @@ Kasanefiles can skip or include additional layers based on the environment, spec
 Common environment can be specified inline within Kasanefile. That's handy in case you have several yamlenv files with known defaults.
 
 ```bash
-$ cat kasanefile
+$ cat Kasanefile
 layers:
 - name: object.yaml
   loader: yamlenv

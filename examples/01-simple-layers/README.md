@@ -5,7 +5,7 @@ In the simplest mode of operation Kasane walks through the layers in order and c
 Remote files must be vendored prior to use. Kasane verifies the remote hash to keep track of the changing upstream and `kasane update` will sync the state to the latest one.
 
 ```bash
-$ cat kasanefile
+$ cat Kasanefile
 layers:
 - first.yaml
 - https://raw.githubusercontent.com/google/kasane/master/examples/01-simple-layers/second.yaml

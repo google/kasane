@@ -3,7 +3,7 @@
 Kasane uses [Jsonnet](http://jsonnet.org/) to transform objects in its pipeline. You can use jsonnet to define new objects, but more commonly you'd use it to make paches to vendored dependencies. This example shows how to modify a vendored dependency.
 
 ```bash
-$ cat kasanefile
+$ cat Kasanefile
 layers:
 - https://raw.githubusercontent.com/google/kasane/master/examples/02-jsonnet-transformations/object.yaml
 - patch.jsonnet
