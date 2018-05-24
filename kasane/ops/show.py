@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import shutil
 import subprocess
 from io import StringIO
 
@@ -33,7 +34,7 @@ def show(path: str, rc: common.RuntimeConfig, highlight: bool, filter_kind: str)
     data = list(filter(lambda o: o['kind'].lower() == filter_kind, data))
   yaml.dump_all(data, s)
   val = s.getvalue()
-  if highlight:
+  if highlight and shutil.which('highlight') != None:
     subprocess.run(['highlight', '-l', 'yaml'], input=val.encode('utf-8'))
   else:
-    print(val)
+    print(val, end='')
