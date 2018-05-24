@@ -1,0 +1,10 @@
+layers:
+- https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
+- service.override.jsonnet
+- name: ingress.yaml
+  when: not istio
+- name: istio-ingress.yaml
+  when: istio
+- name: istio
+  loader: inject
+  when: istio

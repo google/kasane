@@ -1,0 +1,20 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: dashboard-ingress
+  namespace: kube-system
+  annotations:
+    nginx.ingress.kubernetes.io/auth-tls-secret: ingress-nginx/ingress-client-cert
+spec:
+  rules:
+  - host: dashboard.example.com
+    http:
+      paths:
+      - backend:
+          serviceName: kubernetes-dashboard
+          servicePort: 80
+  tls:
+  - secretName: wildcard-example-com
+    hosts:
+    - dashboard.example.com
