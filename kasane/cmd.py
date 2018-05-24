@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # Copyright 2018 Google LLC
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,10 +19,7 @@ from typing import List
 
 import click
 
-import ops.show
-import ops.apply
-import ops.jsonnet
-import ops.update
+from kasane import ops
 
 @click.group()
 @click.option('-p', '--path')
@@ -44,8 +40,8 @@ def cli(ctx, path: str, lib: str, config: str, env: List[str]):
     k, v = kv.split('=', 1)
     collectedenv[k] = v
   ctx.obj['env'] = collectedenv
-  ctx.obj['j'] = ops.jsonnet.Jsonnet([path] + [lib], collectedenv)
-  ctx.obj['rc'] = ops.common.RuntimeConfig(check_hashes=True, jsonnet=ctx.obj['j'], kubeconfig=ctx.obj['config'])
+  ctx.obj['j'] = ops.Jsonnet([path] + [lib], collectedenv)
+  ctx.obj['rc'] = ops.RuntimeConfig(check_hashes=True, jsonnet=ctx.obj['j'], kubeconfig=ctx.obj['config'])
 
 @cli.add_command
 @click.command()
@@ -64,7 +60,7 @@ def show(ctx, raw: bool, validate_signatures: bool, k: str, ignore_env: bool) ->
     check_hashes=validate_signatures,
     jsonnet=ctx.obj['rc'].jsonnet,
     kubeconfig=ctx.obj['rc'].kubeconfig)
-  ops.show.show(ctx.obj['path'], ctx.obj['rc'], not raw, k)
+  ops.show(ctx.obj['path'], ctx.obj['rc'], not raw, k)
 
 @cli.add_command
 @click.command()
@@ -73,7 +69,7 @@ def apply(ctx) -> None:
   '''applies the compiled bundle'''
   
   try:
-    ops.apply.apply(ctx.obj['path'], ctx.obj['rc'])
+    ops.apply(ctx.obj['path'], ctx.obj['rc'])
   except ops.jsonnet.UndefinedEnvError as e:
     print(e)
     print('known env:', ', '.join(ctx.obj['env'].keys()))
@@ -86,7 +82,7 @@ def apply(ctx) -> None:
 def update(ctx, lock_all: bool) -> None:
   '''updates the bundle'''
   
-  ops.update.update(ctx.obj['path'], ctx.obj['rc'], lock_all)
+  ops.update(ctx.obj['path'], ctx.obj['rc'], lock_all)
 
-if __name__ == '__main__':
+def main():
   cli(obj={})
