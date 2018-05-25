@@ -4,8 +4,6 @@ kasane [ 重ね ] (n.) pile; heap; layers
 
 **This is not an official Google product**
 
-**This is also a PoC. It works, though (for some extent of "works")**
-
 Kasane is a layering tool for kubernetes. It allows you to use the officially published YAML documents and extend them further with your local configuration.
 
 Kasane can utilise Jsonnet for deep object modification and patching.
