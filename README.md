@@ -16,6 +16,23 @@ Kasane requires Python 3+. Install via pip:
 pip install kasane
 ```
 
+## Running from a Docker container
+
+You can run kasane from a docker container, the official image is `gcr.io/kasaneapp/kasane`. The image is based on alpine and comes pre-packaged with bash, curl, git and kubectl in addition to kasane itself. The workdir is set to `/app` and the default command is `kasane show` so you can quickly examine your local Kasanefiles like this:
+
+```bash
+$ docker run --rm -ti -v $PWD/examples/03-environment:/app gcr.io/kasaneapp/kasane
+config:
+  defaultFlag: UNRESOLVED_ENV_VAR__DEFAULT_VALUE
+  defaultFromKasanefile: value
+  jsonnetEnv: UNRESOLVED_ENV_VAR__OTHER_VALUE
+kind: VendoredObject
+metadata:
+  name: PreconfiguredObject
+```
+
+Tagged builds for versions starting with 0.1.4 are also available as e.g. `gcr.io/kasaneapp/kasane:0.1.4`.
+
 ## Examples
 
 * [Simple Layers](examples/01-simple-layers) is an introduction to kasane features.
