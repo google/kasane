@@ -28,6 +28,8 @@ from kasane import ops
 @click.option('-e', '--env', multiple=True)
 @click.pass_context
 def cli(ctx, path: str, lib: str, config: str, env: List[str]):
+  if not ctx.obj:
+    ctx.obj = {}
   if not path:
     path = os.path.curdir
   if not lib:
@@ -85,4 +87,4 @@ def update(ctx, lock_all: bool) -> None:
   ops.update(ctx.obj['path'], ctx.obj['rc'], lock_all)
 
 def main():
-  cli(obj={})
+  cli()
