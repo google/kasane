@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import click
 import shutil
 import subprocess
 from io import StringIO
@@ -37,4 +38,4 @@ def show(path: str, rc: common.RuntimeConfig, highlight: bool, filter_kind: str)
   if highlight and shutil.which('highlight') != None:
     subprocess.run(['highlight', '-l', 'yaml'], input=val.encode('utf-8'))
   else:
-    print(val, end='')
+    click.echo(val, nl=False)
