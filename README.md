@@ -24,9 +24,6 @@ Installation via Homebrew:
 
 ```shell
 brew tap google/kasane https://github.com/google/kasane.git
-brew install kasane
-
-# or if there is same named formula:
 brew install google/kasane/kasane
 ```
 
