@@ -20,6 +20,16 @@ Kasane requires Python 3+. Install via pip:
 pip install kasane
 ```
 
+Installation via Homebrew:
+
+```shell
+brew tap google/kasane https://github.com/google/kasane.git
+brew install kasane
+
+# or if there is same named formula:
+brew install google/kasane/kasane
+```
+
 ## Running from a Docker container
 
 You can run kasane from a docker container, the official image is `gcr.io/kasaneapp/kasane`. The image is based on alpine and comes pre-packaged with bash, curl, git and kubectl in addition to kasane itself. The workdir is set to `/app` and the default command is `kasane show` so you can quickly examine your local Kasanefiles like this:
