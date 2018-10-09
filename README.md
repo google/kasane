@@ -55,7 +55,7 @@ Tagged builds for versions starting with 0.1.4 are also available as e.g. `gcr.i
 
 ### Helm
 
-Helm is fully-featured package management solution for kubrnetes. Compared to it, kasane is a swiss army knife. It's simple, lightweight, doesn't install helper code into your production. Kasane allows you to use original YAML files written by application authors, modifying them to your local needs. If you see a `kubectl apply -f http://` example you can turn it into a Kasane deployment with a single line of code and then extend it to your needs.
+Helm is fully-featured package management solution for kubernetes. Compared to it, kasane is a swiss army knife. It's simple, lightweight, doesn't install helper code into your production. Kasane allows you to use original YAML files written by application authors, modifying them to your local needs. If you see a `kubectl apply -f http://` example you can turn it into a Kasane deployment with a single line of code and then extend it to your needs.
 
 Kasane doesn't do any templating, relying on Jsonnet for data manipulation. You won't ever need to count number of spaces to make sure your yaml go template is rendered correctly.
 
