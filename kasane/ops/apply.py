@@ -16,9 +16,11 @@ import subprocess
 from io import StringIO
 
 from ruamel.yaml import YAML
-yaml = YAML()
 
 from . import common, jsonnet
+
+yaml = YAML()
+
 
 def apply(path: str, rc: common.RuntimeConfig) -> None:
   cfg = common.get_config(path, rc)
@@ -30,4 +32,4 @@ def apply(path: str, rc: common.RuntimeConfig) -> None:
   if rc.kubeconfig:
     nsargs += ['--kubeconfig', rc.kubeconfig]
   
-  subprocess.run(['kubectl', 'apply', *nsargs, '-f', '-'], input=val.encode('utf-8'))
+  subprocess.run(['kubectl', 'apply', *nsargs, '-f', '-'], input=val.encode('utf-8'), check=True)
