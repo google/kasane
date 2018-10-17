@@ -12,29 +12,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import re
-from typing import Optional, List, Any, Dict
-import os
-from collections import namedtuple
 import hashlib
-from io import StringIO
-import subprocess
-import pathlib
-
-from ruamel.yaml import YAML, comments
 import json
+import os
+import pathlib
+import re
+import subprocess
+from collections import namedtuple
+from io import StringIO
+from typing import Any, Dict, List, Optional
+
 import requests
 from jinja2 import Template
+from ruamel.yaml import YAML, comments
+
+from .jsonnet import Jsonnet
 
 yaml = YAML()
 yaml.allow_duplicate_keys = True  # https://github.com/istio/istio/issues/2330
 
-from .jsonnet import Jsonnet
 
-CONFIG_NAME = 'Kasanefile'
-LOCKFILE_NAME = 'Kasanefile.lock'
-
-RuntimeConfig = namedtuple('RuntimeConfig', ['check_hashes', 'jsonnet', 'kubeconfig'])
+RuntimeConfig = namedtuple('RuntimeConfig', ['check_hashes', 'jsonnet', 'kubeconfig', 'kasanefile'])
 
 class RemoteNotVendoredError(RuntimeError):
   def __init__(self, layer):
@@ -75,7 +73,7 @@ class Config(object):
     return data
   
   def write_lockfile(self, newlockfile):
-    lockpath = os.path.join(self.path, LOCKFILE_NAME)
+    lockpath = os.path.join(self.path, self.rc.kasanefile + '.lock')
     s = StringIO()
     yaml.dump(newlockfile, s)
     val = s.getvalue()
@@ -221,8 +219,8 @@ class JsonnetLayer(Layer):
     return self._cfg.rc.jsonnet.evaluate_snippet(self.name, self.content, tla_codes=dict(layers=json.dumps(previous)))
 
 def get_config(path: str, rc: RuntimeConfig) -> Config:
-  cfgpath = os.path.join(path, CONFIG_NAME)
-  lockpath = os.path.join(path, LOCKFILE_NAME)
+  cfgpath = os.path.join(path, rc.kasanefile)
+  lockpath = os.path.join(path, rc.kasanefile + '.lock')
   if not os.path.isfile(cfgpath):
     raise RuntimeError("config {} isn't found at {} or is not a file".format(CONFIG_NAME, cfgpath))  
 

@@ -13,8 +13,8 @@
 # limitations under the License.
 
 
-import os
 import json
+import os
 from typing import List
 
 import click
@@ -26,10 +26,11 @@ from kasane import ops
 @click.option('-p', '--path')
 @click.option('-l', '--lib')
 @click.option('-c', '--config')
+@click.option('-f', '--kasanefile')
 @click.option('-e', '--env', multiple=True)
 @click.version_option(message=('%(prog)s v%(version)s'))
 @click.pass_context
-def cli(ctx, path: str, lib: str, config: str, env: List[str]):
+def cli(ctx, path: str, lib: str, config: str, kasanefile: str, env: List[str]):
   if not ctx.obj:
     ctx.obj = {}
   if not path:
@@ -38,6 +39,9 @@ def cli(ctx, path: str, lib: str, config: str, env: List[str]):
     lib = ''
   ctx.obj['path'] = path
   ctx.obj['config'] = config
+  if not kasanefile:
+    kasanefile = 'Kasanefile'
+  ctx.obj['kasanefile'] = kasanefile
   collectedenv = os.getenv('KASANE_JSONNET_ENV', '{ }')
   collectedenv = json.loads(collectedenv)
   for kv in env:
@@ -45,7 +49,11 @@ def cli(ctx, path: str, lib: str, config: str, env: List[str]):
     collectedenv[k] = v
   ctx.obj['env'] = collectedenv
   ctx.obj['j'] = ops.Jsonnet([path] + [lib], collectedenv)
-  ctx.obj['rc'] = ops.RuntimeConfig(check_hashes=True, jsonnet=ctx.obj['j'], kubeconfig=ctx.obj['config'])
+  ctx.obj['rc'] = ops.RuntimeConfig(
+    check_hashes=True,
+    jsonnet=ctx.obj['j'],
+    kubeconfig=ctx.obj['config'],
+    kasanefile=ctx.obj['kasanefile'])
 
 
 @cli.add_command
@@ -64,7 +72,8 @@ def show(ctx, raw: bool, validate_signatures: bool, k: str, ignore_env: bool) ->
   ctx.obj['rc'] = ops.common.RuntimeConfig(
     check_hashes=validate_signatures,
     jsonnet=ctx.obj['rc'].jsonnet,
-    kubeconfig=ctx.obj['rc'].kubeconfig)
+    kubeconfig=ctx.obj['rc'].kubeconfig,
+    kasanefile=ctx.obj['rc'].kasanefile)
   ops.show(ctx.obj['path'], ctx.obj['rc'], not raw, k)
 
 
