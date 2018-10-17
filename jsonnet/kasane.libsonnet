@@ -20,11 +20,14 @@
       },
     },
   
+  objectName(obj)::
+    obj.kind + '/' +
+       (if std.objectHas(obj.metadata, 'namespace') then obj.metadata.namespace + '/' else '') +
+       obj.metadata.name,
+  
   named(objectlist)::
     {
-      [k.kind + '/' +
-       (if std.objectHas(k.metadata, 'namespace') then k.metadata.namespace + '/' else '') +
-       k.metadata.name]: k,
+      [$.objectName(k)]: k,
       for k in
       std.makeArray(
           std.length(objectlist),

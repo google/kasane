@@ -15,7 +15,10 @@
 import json
 import os
 
+import pkg_resources
+
 import _jsonnet
+
 
 class UndefinedEnvError(RuntimeError):
   def __init__(self, var):
@@ -39,19 +42,18 @@ class Jsonnet(object):
       return 'UNRESOLVED_ENV_VAR__' + name
     raise UndefinedEnvError(name)
 
-  def evaluate(self, *args, **kwargs):
+  def evaluate_snippet(self, name, content, *args, **kwargs):
     kwargs['import_callback'] = self._import_callback
     kwargs['native_callbacks'] = self._native_callbacks
-    return json.loads(_jsonnet.evaluate_file(*args, **kwargs))
 
-  def evaluate_snippet(self, *args, **kwargs):
-    kwargs['import_callback'] = self._import_callback
-    kwargs['native_callbacks'] = self._native_callbacks
-    return json.loads(_jsonnet.evaluate_snippet(*args, **kwargs))
+    return json.loads(_jsonnet.evaluate_snippet(name, content, *args, **kwargs))
 
   def _import_callback(self, localdir, rel):
     if not rel:
       raise RuntimeError('Got invalid filename (empty string).')
+    
+    if rel == '@kasane.libsonnet':
+      return '@kasane.libsonnet', self.kasane_stdlib()
 
     if rel[-1] == '/':
       raise RuntimeError('Attempted to import a directory')
@@ -84,3 +86,5 @@ class Jsonnet(object):
     with open(full_path) as f:
       return full_path, f.read()
 
+  def kasane_stdlib(self):
+    return pkg_resources.resource_stream('kasane', '../jsonnet/kasane.libsonnet').read().decode('utf-8')

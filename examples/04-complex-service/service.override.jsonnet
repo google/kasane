@@ -1,8 +1,8 @@
-local h = import 'helpers.libsonnet';
+local Kasane = import '@kasane.libsonnet';
 
 function (layers)
 
-h.list(h.named(layers) {
+Kasane.list(Kasane.named(layers) {
   'Service/kube-system/kubernetes-dashboard'+: {
     spec+: {
       ports: [{
@@ -12,7 +12,7 @@ h.list(h.named(layers) {
       }],
     },
   },
-  'Deployment/kube-system/kubernetes-dashboard'+: h.patchContainer({
+  'Deployment/kube-system/kubernetes-dashboard'+: Kasane.patchContainer({
     args: [
       '--insecure-bind-address=0.0.0.0',
       '--insecure-port=9090',
