@@ -2,8 +2,6 @@
 
 ![](https://raw.githubusercontent.com/google/kasane/master/logo.png)
 
-[![Build Status](https://travis-ci.org/google/kasane.svg?branch=master)](https://travis-ci.org/google/kasane) [![Coverage Status](https://coveralls.io/repos/github/google/kasane/badge.svg?branch=master)](https://coveralls.io/github/google/kasane?branch=master)
-
 kasane [ 重ね ] (n.) pile; heap; layers
 
 **This is not an official Google product**
