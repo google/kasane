@@ -10,6 +10,12 @@ Kasane is a layering tool for kubernetes. It allows you to use the officially pu
 
 Kasane can utilise Jsonnet for deep object modification and patching.
 
+## Archival notice
+
+As time goes the k8s infrastructure takes shape. Kasane was an interesting experiment, but practice demonstrated that k8s deployments often need to interact with various third-party services, be those clouds, credential storages, or databases.
+
+Kasane can be somewhat easily replicated with pulumi. Go try that.
+
 ## Installation
 
 Kasane requires Python 3+. Install via pip:
